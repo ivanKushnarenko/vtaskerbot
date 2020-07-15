@@ -1,15 +1,20 @@
 import telebot as tb
 from telebot.types import Message
 
-TOKEN = '1351120944:AAEAeMPosCq5UsuqVsOVZ73J6VvwDrhKM_A'
-
-bot = tb.TeleBot(TOKEN)
+import config
 
 
-@bot.message_handler(commands=['new_project'])
-def create_project(message: Message):
-    msg = bot.reply_to(message, 'input a name of project')
-    bot.register_next_step_handler(msg, _handle_project_name)
+bot = tb.TeleBot(config.TOKEN)
+
+
+@bot.message_handler(commands=['start', 'help'])
+def start(message: Message):
+    pass
+
+
+@bot.message_handler(commands=['new_task'])
+def new_task(message: Message):
+    bot.reply_to(message, message.text)
 
 
 @bot.message_handler(content_types=['text'])
